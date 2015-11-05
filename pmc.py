@@ -5,7 +5,7 @@ plt.switch_backend("Agg")
 import seaborn as sns
 
 n = 25
-N = 1000
+N = 2000
 
 hyper_mu = 0
 hyper_sigma = 10
@@ -13,7 +13,7 @@ hyper_sigma = 10
 true_mu = 0.
 sigma = 1. 
 
-epsilon0 = 1.
+epsilon0 = 2.
 
 T = 20
 
@@ -76,7 +76,7 @@ for t in range(T):
          mu[t,i] = proposed_mu
 
    else:
-      epsilon[t] = np.percentile(d[t-1], 75)
+      epsilon[t] = np.percentile(d[t-1], 50)
       mean_prev = np.sum(mu[t-1, :]*weights[t-1,:])
       var_prev  = np.sum((mu[t-1, :] - mean_prev)**2. * weights[t-1 , :])
       #var_prev  = np.cov(mu[t-1])
@@ -98,5 +98,4 @@ for t in range(T):
    weights[t] = weights[t] / np.sum(weights[t])
    plot(t, mu , weights)
    weighted_plot(t , mu , weights)
-   print epsilon[t]
-
+   print t
